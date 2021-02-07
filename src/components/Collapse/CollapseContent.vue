@@ -13,5 +13,6 @@ export default {
 <style scoped lang="scss">
 .collapse-content {
   border: 1px solid lavender;
+  background-color: #fff;
 }
 </style>

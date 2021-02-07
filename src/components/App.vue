@@ -1,39 +1,63 @@
 <template>
   <div id="app">
-    <Collapse>
-      <CollapseHeader slot="header">Книги</CollapseHeader>
-      <CollapseContent slot="content">
-        <ul>
-          <li>Книга номер 1</li>
-          <li>Книга номер 2</li>
-          <li>Книга номер 3</li>
-        </ul>
-      </CollapseContent>
-    </Collapse>
+    <div class="main">
+      <Products />
+      <Cart />
+    </div>
   </div>
 </template>
 
 <script>
-import Collapse from "./Collapse/Collapse.vue";
-import CollapseContent from "./Collapse/CollapseContent.vue";
-import CollapseHeader from "./Collapse/CollapseHeader.vue";
+import axios from "axios";
+import { Utils } from "@/services/utils";
+import Products from "@/components/Products/Products";
+import Cart from "@/components/Cart/Cart";
 
 export default {
   name: "App",
   components: {
-    CollapseHeader,
-    CollapseContent,
-    Collapse
+    Products,
+    Cart
+  },
+  data() {
+    return {
+      baseUrl: process.env.VUE_APP_BASE_URL
+    };
+  },
+  methods: {
+    fetchData() {
+      axios.get(this.baseUrl + "data.json").then(response => {
+        const productGroups = Utils.groupBy(response.data.Value.Goods, "G");
+        console.log(productGroups);
+      });
+    }
   }
 };
 </script>
 
 <style lang="scss">
+body {
+  background-color: #f0f3f5;
+  display: flex;
+  justify-content: center;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin-top: 60px;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 </style>
