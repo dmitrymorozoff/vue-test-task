@@ -11,9 +11,26 @@
 export default {
   name: "ProductItem",
   props: {
-    name: String,
-    count: Number,
-    price: String
+    id: {
+      type: Number,
+      required: true
+    },
+    categoryId: {
+      type: Number,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    count: {
+      type: Number,
+      required: true
+    },
+    price: {
+      type: String,
+      required: true
+    }
   }
 };
 </script>

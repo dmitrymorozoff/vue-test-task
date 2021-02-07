@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import { Utils } from "@/services/utils";
 import Products from "@/components/Products/Products";
 import Cart from "@/components/Cart/Cart";
 
@@ -18,19 +16,6 @@ export default {
   components: {
     Products,
     Cart
-  },
-  data() {
-    return {
-      baseUrl: process.env.VUE_APP_BASE_URL
-    };
-  },
-  methods: {
-    fetchData() {
-      axios.get(this.baseUrl + "data.json").then(response => {
-        const productGroups = Utils.groupBy(response.data.Value.Goods, "G");
-        console.log(productGroups);
-      });
-    }
   }
 };
 </script>

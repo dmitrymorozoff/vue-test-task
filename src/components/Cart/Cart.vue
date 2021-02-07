@@ -1,11 +1,26 @@
 <template>
   <div class="cart">
+    <h2>Корзина товаров</h2>
     <CartHeader />
     <div class="cart-items">
-      <CartItem></CartItem>
-      <CartItem></CartItem>
-      <CartItem></CartItem>
-      <CartItem></CartItem>
+      <CartItem
+        category="Книги"
+        name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
+        :count="4"
+        price="953 руб."
+      ></CartItem>
+      <CartItem
+        category="Книги"
+        name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
+        :count="7"
+        price="953 руб."
+      ></CartItem>
+      <CartItem
+        category="Книги"
+        name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
+        :count="4"
+        price="953 руб."
+      ></CartItem>
     </div>
   </div>
 </template>

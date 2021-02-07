@@ -1,18 +1,33 @@
 <template>
   <div class="cart-item">
-    <div>
-      Книги, Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест,
-      К. Штайн.
-    </div>
-    <div><input type="text" /> шт.</div>
-    <div>954 руб.</div>
+    <div>{{ category }}, {{ name }}</div>
+    <div><input type="number" :value="count" :max="10" /> шт.</div>
+    <div>{{ price }}</div>
     <div><button>удалить</button></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CartItem"
+  name: "CartItem",
+  props: {
+    category: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    count: {
+      type: Number,
+      required: true
+    },
+    price: {
+      type: String,
+      required: true
+    }
+  }
 };
 </script>
 

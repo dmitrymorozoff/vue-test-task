@@ -16,10 +16,7 @@
 <script>
 export default {
   name: "Collapse",
-  props: {
-    msg: String
-  },
-  data: function() {
+  data() {
     return {
       isVisible: true
     };

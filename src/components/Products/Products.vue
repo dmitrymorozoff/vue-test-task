@@ -1,22 +1,17 @@
 <template>
   <div class="products">
-    <Collapse>
-      <CollapseHeader slot="header">Книги</CollapseHeader>
+    <h2>Список товаров</h2>
+    <Collapse v-for="(category, key) in products" :key="key">
+      <CollapseHeader slot="header">{{ key }}</CollapseHeader>
       <CollapseContent slot="content">
         <ProductItem
+          v-for="product in category"
+          :key="product.T"
+          :id="product.T"
+          :categoryId="3"
           name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
-          count="5"
-          price="100 USD"
-        />
-        <ProductItem
-          name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
-          count="5"
-          price="300 USD"
-        />
-        <ProductItem
-          name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
-          count="5"
-          price="500 USD"
+          :count="product.P"
+          :price="`${product.C} USD`"
         />
       </CollapseContent>
     </Collapse>
@@ -28,6 +23,8 @@ import CollapseHeader from "@/components/Collapse/CollapseHeader";
 import CollapseContent from "@/components/Collapse/CollapseContent";
 import Collapse from "@/components/Collapse/Collapse";
 import ProductItem from "@/components/Products/ProductItem";
+import { mapState } from "vuex";
+import { ActionTypes } from "@/store/action-types";
 
 export default {
   name: "Products",
@@ -36,6 +33,13 @@ export default {
     CollapseContent,
     Collapse,
     ProductItem
+  },
+  computed: mapState({
+    products: state => state.products.list
+  }),
+  created() {
+    this.$store.dispatch(ActionTypes.GET_ALL_PRODUCTS);
+    this.$store.dispatch(ActionTypes.GET_NAMES);
   }
 };
 </script>
