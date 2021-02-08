@@ -4,10 +4,23 @@ export const cart = {
     list: []
   }),
   getters: {
-    totalPriceInRouble: state => {
+    listWithRoubles: (state, getters, rootState) => {
+      return state.list.map(product => {
+        console.log("product", {
+          ...product,
+          priceInRouble: product.price * rootState.dollarRate
+        });
+        return {
+          ...product,
+          totalPriceInRouble:
+            product.price * rootState.dollarRate * product.count
+        };
+      });
+    },
+    totalPriceInRouble: (state, getters, rootState) => {
       if (state.list.length > 0) {
         return state.list
-          .map(item => item.totalPriceInRouble)
+          .map(item => item.price * rootState.dollarRate * item.count)
           .reduce((x, y) => x + y)
           .toFixed(2);
       }

@@ -4,7 +4,7 @@
     <CartHeader />
     <div class="cart-items">
       <CartItem
-        v-for="(cartItem, index) in list"
+        v-for="(cartItem, index) in listWithRoubles"
         :key="index"
         :cartItem="cartItem"
         @remove-product-from-cart="removeProductFromCart"
@@ -20,7 +20,7 @@
 <script>
 import CartHeader from "@/components/Cart/CartHeader";
 import CartItem from "@/components/Cart/CartItem";
-import { mapMutations, mapGetters, mapState } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "Cart",
@@ -29,8 +29,7 @@ export default {
     CartHeader
   },
   computed: {
-    ...mapGetters("cart", ["totalPriceInRouble"]),
-    ...mapState("cart", ["list"])
+    ...mapGetters("cart", ["totalPriceInRouble", "listWithRoubles"])
   },
   methods: {
     ...mapMutations("cart", ["removeProductFromCart"])
