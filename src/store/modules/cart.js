@@ -15,12 +15,11 @@ export const cart = {
   },
   mutations: {
     addProductToCart: (state, product) => {
-      const foundIndex = state.list.findIndex(
+      const currentProduct = state.list.find(
         x => x.productId === product.productId
       );
-      const currentProduct = state.list[foundIndex];
 
-      if (foundIndex !== -1) {
+      if (currentProduct) {
         currentProduct.count += 1;
         currentProduct.totalPrice += product.price;
       } else {
