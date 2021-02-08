@@ -5,6 +5,13 @@ export const cart = {
   state: () => ({
     list: []
   }),
+  getters: {
+    totalPrice: state => {
+      if (state.list.length > 0) {
+        return state.list.map(item => item.totalPrice).reduce((x, y) => x + y);
+      }
+    }
+  },
   actions: {
     [ActionTypes.ADD_PRODUCT_TO_CART]: ({ commit }, product) => {
       commit(MutationTypes.ADD_PRODUCT_TO_CART, product);

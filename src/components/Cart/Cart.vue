@@ -10,13 +10,17 @@
         v-on:remove-product-from-cart="removeProductFromCart"
       ></CartItem>
     </div>
+    <div class="total-price">
+      Общая стоимость
+      <div class="total-price-value">{{ totalPrice || 0 }} руб.</div>
+    </div>
   </div>
 </template>
 
 <script>
 import CartHeader from "@/components/Cart/CartHeader";
 import CartItem from "@/components/Cart/CartItem";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { ActionTypes } from "@/store/action-types";
 
 export default {
@@ -25,9 +29,12 @@ export default {
     CartItem,
     CartHeader
   },
-  computed: mapState({
-    cart: state => state.cart.list
-  }),
+  computed: {
+    ...mapGetters(["totalPrice"]),
+    ...mapState({
+      cart: state => state.cart.list
+    })
+  },
   methods: {
     removeProductFromCart(product) {
       this.$store.dispatch(ActionTypes.REMOVE_PRODUCT_FROM_CART, {
@@ -47,9 +54,25 @@ export default {
   background-color: #fff;
   padding: 20px;
 }
+
 .cart-items {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.total-price {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 0;
+  box-sizing: border-box;
+}
+
+.total-price-value {
+  color: #4caf50;
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 15px;
 }
 </style>
