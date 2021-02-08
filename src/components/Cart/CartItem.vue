@@ -4,7 +4,14 @@
     <div><input type="number" v-model.number="count" /> шт.</div>
     <div>{{ cartItem.totalPrice.toFixed(2) }}</div>
     <div>
-      <button @click="$emit('remove-product-from-cart', cartItem)">
+      <button
+        @click="
+          $emit('remove-product-from-cart', {
+            id: cartItem.productId,
+            count: 1
+          })
+        "
+      >
         удалить
       </button>
     </div>

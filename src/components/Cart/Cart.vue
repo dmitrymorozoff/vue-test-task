@@ -20,8 +20,7 @@
 <script>
 import CartHeader from "@/components/Cart/CartHeader";
 import CartItem from "@/components/Cart/CartItem";
-import { mapGetters, mapState } from "vuex";
-import { ActionTypes } from "@/store/action-types";
+import { mapMutations, mapGetters, mapState } from "vuex";
 
 export default {
   name: "Cart",
@@ -34,12 +33,7 @@ export default {
     ...mapState("cart", ["list"])
   },
   methods: {
-    removeProductFromCart(product) {
-      this.$store.dispatch(ActionTypes.REMOVE_PRODUCT_FROM_CART, {
-        id: product.productId,
-        count: 1
-      });
-    }
+    ...mapMutations("cart", ["removeProductFromCart"])
   }
 };
 </script>

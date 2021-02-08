@@ -20,8 +20,7 @@ import CollapseHeader from "@/components/Collapse/CollapseHeader";
 import CollapseContent from "@/components/Collapse/CollapseContent";
 import Collapse from "@/components/Collapse/Collapse";
 import ProductItem from "@/components/Products/ProductItem";
-import { ActionTypes } from "@/store/action-types";
-import { mapActions, mapGetters } from "vuex";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Products",
@@ -34,12 +33,12 @@ export default {
   computed: {
     ...mapGetters("products", ["productGroups"])
   },
-  created: {},
+  created() {
+    this.getNames();
+  },
   methods: {
-    ...mapActions("products", [ActionTypes.GET_NAMES]),
-    addProductToCart(product) {
-      this.$store.dispatch(ActionTypes.ADD_PRODUCT_TO_CART, product);
-    }
+    ...mapMutations("cart", ["addProductToCart"]),
+    ...mapActions("products", ["getNames"])
   }
 };
 </script>
