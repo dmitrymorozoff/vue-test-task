@@ -1,5 +1,5 @@
 <template>
-  <div class="product-item" v-on:click="$emit('add-product-to-cart', product)">
+  <div class="product-item" @click="$emit('add-product-to-cart', product)">
     <div class="product-item-value">
       {{ product.productName }} ({{ product.count }})
     </div>

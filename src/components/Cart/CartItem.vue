@@ -1,10 +1,10 @@
 <template>
   <div class="cart-item">
     <div>{{ cartItem.groupName }}, {{ cartItem.productName }}</div>
-    <div><input type="number" :value="cartItem.count" :max="10" /> шт.</div>
-    <div>{{ cartItem.totalPrice }}</div>
+    <div><input type="number" v-model.number="count" /> шт.</div>
+    <div>{{ cartItem.totalPrice.toFixed(2) }}</div>
     <div>
-      <button v-on:click="$emit('remove-product-from-cart', cartItem)">
+      <button @click="$emit('remove-product-from-cart', cartItem)">
         удалить
       </button>
     </div>
@@ -18,6 +18,20 @@ export default {
     cartItem: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      count: this.cartItem.count
+    };
+  },
+  watch: {
+    cartItem: {
+      immediate: true,
+      deep: true,
+      handler(newCartItem) {
+        this.count = newCartItem.count;
+      }
     }
   }
 };

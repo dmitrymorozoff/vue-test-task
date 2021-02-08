@@ -5,6 +5,7 @@ import { RequestStatus } from "@/constants/request-status";
 import { Utils } from "@/services/utils";
 
 export const products = {
+  namespaced: true,
   state: () => ({
     list: [],
     listRequestStatus: null,

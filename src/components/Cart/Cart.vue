@@ -4,10 +4,10 @@
     <CartHeader />
     <div class="cart-items">
       <CartItem
-        v-for="(cartItem, index) in cart"
+        v-for="(cartItem, index) in list"
         :key="index"
         :cartItem="cartItem"
-        v-on:remove-product-from-cart="removeProductFromCart"
+        @remove-product-from-cart="removeProductFromCart"
       ></CartItem>
     </div>
     <div class="total-price">
@@ -30,10 +30,8 @@ export default {
     CartHeader
   },
   computed: {
-    ...mapGetters(["totalPrice"]),
-    ...mapState({
-      cart: state => state.cart.list
-    })
+    ...mapGetters("cart", ["totalPrice"]),
+    ...mapState("cart", ["list"])
   },
   methods: {
     removeProductFromCart(product) {

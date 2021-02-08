@@ -6,7 +6,7 @@
       <CollapseContent slot="content">
         <ProductItem
           v-for="product in group"
-          v-on:add-product-to-cart="addProductToCart"
+          @add-product-to-cart="addProductToCart"
           :key="product.productId"
           :product="product"
         />
@@ -21,7 +21,7 @@ import CollapseContent from "@/components/Collapse/CollapseContent";
 import Collapse from "@/components/Collapse/Collapse";
 import ProductItem from "@/components/Products/ProductItem";
 import { ActionTypes } from "@/store/action-types";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Products",
@@ -32,12 +32,11 @@ export default {
     ProductItem
   },
   computed: {
-    ...mapGetters(["productGroups"])
+    ...mapGetters("products", ["productGroups"])
   },
-  created() {
-    this.$store.dispatch(ActionTypes.GET_NAMES);
-  },
+  created: {},
   methods: {
+    ...mapActions("products", [ActionTypes.GET_NAMES]),
     addProductToCart(product) {
       this.$store.dispatch(ActionTypes.ADD_PRODUCT_TO_CART, product);
     }

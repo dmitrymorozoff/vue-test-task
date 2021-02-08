@@ -2,13 +2,17 @@ import { ActionTypes } from "@/store/action-types";
 import { MutationTypes } from "@/store/mutation-types";
 
 export const cart = {
+  namespaced: true,
   state: () => ({
     list: []
   }),
   getters: {
     totalPrice: state => {
       if (state.list.length > 0) {
-        return state.list.map(item => item.totalPrice).reduce((x, y) => x + y);
+        return state.list
+          .map(item => item.totalPrice)
+          .reduce((x, y) => x + y)
+          .toFixed(2);
       }
     }
   },
