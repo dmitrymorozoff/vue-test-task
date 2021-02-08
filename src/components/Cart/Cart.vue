@@ -12,7 +12,7 @@
     </div>
     <div class="total-price">
       Общая стоимость
-      <div class="total-price-value">{{ totalPrice || 0 }} руб.</div>
+      <div class="total-price-value">{{ totalPriceInRouble || 0 }} руб.</div>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
     CartHeader
   },
   computed: {
-    ...mapGetters("cart", ["totalPrice"]),
+    ...mapGetters("cart", ["totalPriceInRouble"]),
     ...mapState("cart", ["list"])
   },
   methods: {

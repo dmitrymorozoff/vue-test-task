@@ -15,7 +15,14 @@ const renameKeys = (obj, newKeys) => {
   return Object.assign({}, ...keyValues);
 };
 
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
 export const Utils = {
   groupBy,
-  renameKeys
+  renameKeys,
+  getRandomInt
 };

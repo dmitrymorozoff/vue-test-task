@@ -4,10 +4,10 @@ export const cart = {
     list: []
   }),
   getters: {
-    totalPrice: state => {
+    totalPriceInRouble: state => {
       if (state.list.length > 0) {
         return state.list
-          .map(item => item.totalPrice)
+          .map(item => item.totalPriceInRouble)
           .reduce((x, y) => x + y)
           .toFixed(2);
       }
@@ -21,11 +21,11 @@ export const cart = {
 
       if (currentProduct) {
         currentProduct.count += 1;
-        currentProduct.totalPrice += product.price;
+        currentProduct.totalPriceInRouble += product.priceInRouble;
       } else {
         state.list.push({
           ...product,
-          totalPrice: product.price,
+          totalPriceInRouble: product.priceInRouble,
           totalCount: product.count,
           count: 1
         });
@@ -44,6 +44,8 @@ export const cart = {
 
       if (foundIndex !== -1) {
         currentProduct.count = payload.count;
+        currentProduct.totalPriceInRouble =
+          payload.count * currentProduct.priceInRouble;
       }
     }
   }

@@ -52,7 +52,11 @@ export const products = {
         .then(response => {
           const names = response.data;
           commit("setNames", names);
-          dispatch("getAllProducts");
+
+          setInterval(() => {
+            dispatch("getAllProducts");
+          }, 5000);
+
           commit("setNamesStatus", RequestStatus.SUCCESS);
         })
         .catch(error => {
@@ -63,7 +67,11 @@ export const products = {
   },
   mutations: {
     setAllProducts: (state, products) => {
-      state.list = products;
+      const dollarRate = Utils.getRandomInt(20, 80);
+      state.list = products.map(product => ({
+        priceInRouble: product.price * dollarRate,
+        ...product
+      }));
     },
     setAllProductsStatus: (state, payload) => {
       state.listRequestStatus = payload;

@@ -4,7 +4,7 @@
       {{ product.productName }} ({{ product.count }})
     </div>
     <div class="product-item-price">
-      {{ product.price }}
+      {{ product.priceInRouble.toFixed(2) }} руб.
     </div>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
 }
 
 .product-item-value {
-  width: 90%;
+  width: 75%;
   display: flex;
   font-size: 14px;
   padding: 10px;
@@ -49,7 +49,7 @@ export default {
 }
 
 .product-item-price {
-  width: 20%;
+  width: 25%;
   font-weight: bold;
   font-size: 16px;
   padding: 10px;
