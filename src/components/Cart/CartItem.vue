@@ -27,17 +27,10 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      count: this.cartItem.count
-    };
-  },
-  watch: {
-    cartItem: {
-      immediate: true,
-      deep: true,
-      handler(newCartItem) {
-        this.count = newCartItem.count;
+  computed: {
+    count: {
+      get: function() {
+        return this.cartItem.count;
       }
     }
   }
