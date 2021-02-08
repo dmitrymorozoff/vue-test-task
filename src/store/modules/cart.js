@@ -26,19 +26,24 @@ export const cart = {
         state.list.push({
           ...product,
           totalPrice: product.price,
+          totalCount: product.count,
           count: 1
         });
       }
     },
     removeProductFromCart: (state, payload) => {
       const foundIndex = state.list.findIndex(x => x.productId === payload.id);
+
+      if (foundIndex !== -1) {
+        state.list.splice(foundIndex, 1);
+      }
+    },
+    setCount: (state, payload) => {
+      const foundIndex = state.list.findIndex(x => x.productId === payload.id);
       const currentProduct = state.list[foundIndex];
 
-      if (currentProduct.count === 1) {
-        state.list.splice(foundIndex, 1);
-      } else {
-        currentProduct.count -= payload.count;
-        currentProduct.totalPrice -= currentProduct.price;
+      if (foundIndex !== -1) {
+        currentProduct.count = payload.count;
       }
     }
   }

@@ -1,7 +1,17 @@
 <template>
   <div class="cart-item">
     <div>{{ cartItem.groupName }}, {{ cartItem.productName }}</div>
-    <div><input type="number" v-model.number="count" /> шт.</div>
+    <div>
+      <input
+        type="number"
+        v-model.number="count"
+        onkeydown="return false;"
+        min="1"
+        :max="cartItem.totalCount"
+        step="1"
+      />
+      шт.
+    </div>
     <div>{{ cartItem.totalPrice.toFixed(2) }}</div>
     <div>
       <button
@@ -19,6 +29,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   name: "CartItem",
   props: {
@@ -31,8 +43,14 @@ export default {
     count: {
       get: function() {
         return this.cartItem.count;
+      },
+      set: function(newValue) {
+        this.setCount({ count: newValue, id: this.cartItem.productId });
       }
     }
+  },
+  methods: {
+    ...mapMutations("cart", ["setCount"])
   }
 };
 </script>
