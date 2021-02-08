@@ -4,22 +4,10 @@
     <CartHeader />
     <div class="cart-items">
       <CartItem
-        category="Книги"
-        name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
-        :count="4"
-        price="953 руб."
-      ></CartItem>
-      <CartItem
-        category="Книги"
-        name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
-        :count="7"
-        price="953 руб."
-      ></CartItem>
-      <CartItem
-        category="Книги"
-        name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
-        :count="4"
-        price="953 руб."
+        v-for="(cartItem, index) in cart"
+        :key="index"
+        :cartItem="cartItem"
+        v-on:remove-product-from-cart="removeProductFromCart"
       ></CartItem>
     </div>
   </div>
@@ -28,12 +16,25 @@
 <script>
 import CartHeader from "@/components/Cart/CartHeader";
 import CartItem from "@/components/Cart/CartItem";
+import { mapState } from "vuex";
+import { ActionTypes } from "@/store/action-types";
 
 export default {
   name: "Cart",
   components: {
     CartItem,
     CartHeader
+  },
+  computed: mapState({
+    cart: state => state.cart.list
+  }),
+  methods: {
+    removeProductFromCart(product) {
+      this.$store.dispatch(ActionTypes.REMOVE_PRODUCT_FROM_CART, {
+        id: product.productId,
+        count: 1
+      });
+    }
   }
 };
 </script>

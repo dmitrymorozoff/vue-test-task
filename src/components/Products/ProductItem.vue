@@ -1,8 +1,10 @@
 <template>
-  <div class="product-item">
-    <div class="product-item-value">{{ name }} ({{ count }})</div>
+  <div class="product-item" v-on:click="$emit('add-product-to-cart', product)">
+    <div class="product-item-value">
+      {{ product.productName }} ({{ product.count }})
+    </div>
     <div class="product-item-price">
-      {{ price }}
+      {{ product.price }}
     </div>
   </div>
 </template>
@@ -11,24 +13,8 @@
 export default {
   name: "ProductItem",
   props: {
-    id: {
-      type: Number,
-      required: true
-    },
-    categoryId: {
-      type: Number,
-      required: true
-    },
-    name: {
-      type: String,
-      required: true
-    },
-    count: {
-      type: Number,
-      required: true
-    },
-    price: {
-      type: String,
+    product: {
+      type: Object,
       required: true
     }
   }
@@ -42,6 +28,11 @@ export default {
   width: 100%;
   height: 100%;
   border-bottom: 1px solid lavender;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f3f5;
+  }
 
   &:last-child {
     border-bottom: none;
@@ -54,6 +45,7 @@ export default {
   font-size: 14px;
   padding: 10px;
   box-sizing: border-box;
+  text-align: left;
 }
 
 .product-item-price {

@@ -1,9 +1,13 @@
 <template>
   <div class="cart-item">
-    <div>{{ category }}, {{ name }}</div>
-    <div><input type="number" :value="count" :max="10" /> шт.</div>
-    <div>{{ price }}</div>
-    <div><button>удалить</button></div>
+    <div>{{ cartItem.groupName }}, {{ cartItem.productName }}</div>
+    <div><input type="number" :value="cartItem.count" :max="10" /> шт.</div>
+    <div>{{ cartItem.totalPrice }}</div>
+    <div>
+      <button v-on:click="$emit('remove-product-from-cart', cartItem)">
+        удалить
+      </button>
+    </div>
   </div>
 </template>
 
@@ -11,20 +15,8 @@
 export default {
   name: "CartItem",
   props: {
-    category: {
-      type: String,
-      required: true
-    },
-    name: {
-      type: String,
-      required: true
-    },
-    count: {
-      type: Number,
-      required: true
-    },
-    price: {
-      type: String,
+    cartItem: {
+      type: Object,
       required: true
     }
   }
@@ -47,6 +39,7 @@ export default {
     &:nth-child(1) {
       width: 50%;
     }
+
     &:nth-child(2) {
       width: 25%;
 
@@ -55,9 +48,11 @@ export default {
         margin-right: 5px;
       }
     }
+
     &:nth-child(3) {
       width: 15%;
     }
+
     &:nth-child(4) {
       width: 10%;
 

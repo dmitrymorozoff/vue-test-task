@@ -5,6 +5,17 @@ const groupBy = (arr, key) => {
   }, {});
 };
 
+const renameKeys = (obj, newKeys) => {
+  const keyValues = Object.keys(obj).map(key => {
+    if (newKeys[key]) {
+      const newKey = newKeys[key] || key;
+      return { [newKey]: obj[key] };
+    }
+  });
+  return Object.assign({}, ...keyValues);
+};
+
 export const Utils = {
-  groupBy
+  groupBy,
+  renameKeys
 };

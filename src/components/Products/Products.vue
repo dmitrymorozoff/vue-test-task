@@ -1,17 +1,14 @@
 <template>
   <div class="products">
     <h2>Список товаров</h2>
-    <Collapse v-for="(category, key) in products" :key="key">
+    <Collapse v-for="(group, key) in productGroups" :key="key">
       <CollapseHeader slot="header">{{ key }}</CollapseHeader>
       <CollapseContent slot="content">
         <ProductItem
-          v-for="product in category"
-          :key="product.T"
-          :id="product.T"
-          :categoryId="3"
-          name="Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн."
-          :count="product.P"
-          :price="`${product.C} USD`"
+          v-for="product in group"
+          v-on:add-product-to-cart="addProductToCart"
+          :key="product.productId"
+          :product="product"
         />
       </CollapseContent>
     </Collapse>
@@ -23,8 +20,8 @@ import CollapseHeader from "@/components/Collapse/CollapseHeader";
 import CollapseContent from "@/components/Collapse/CollapseContent";
 import Collapse from "@/components/Collapse/Collapse";
 import ProductItem from "@/components/Products/ProductItem";
-import { mapState } from "vuex";
 import { ActionTypes } from "@/store/action-types";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Products",
@@ -34,12 +31,16 @@ export default {
     Collapse,
     ProductItem
   },
-  computed: mapState({
-    products: state => state.products.list
-  }),
+  computed: {
+    ...mapGetters(["productGroups"])
+  },
   created() {
-    this.$store.dispatch(ActionTypes.GET_ALL_PRODUCTS);
     this.$store.dispatch(ActionTypes.GET_NAMES);
+  },
+  methods: {
+    addProductToCart(product) {
+      this.$store.dispatch(ActionTypes.ADD_PRODUCT_TO_CART, product);
+    }
   }
 };
 </script>
