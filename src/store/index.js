@@ -12,8 +12,7 @@ export default new Vuex.Store({
   },
   mutations: {
     updateDollarRate: state => {
-      const newDollarRate = Utils.getRandomInt(20, 80);
-      state.dollarRate = newDollarRate;
+      state.dollarRate = Utils.getRandomInt(20, 80);
     }
   },
   actions: {},

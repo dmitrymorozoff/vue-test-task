@@ -6,10 +6,6 @@ export const cart = {
   getters: {
     listWithRoubles: (state, getters, rootState) => {
       return state.list.map(product => {
-        console.log("product", {
-          ...product,
-          priceInRouble: product.price * rootState.dollarRate
-        });
         return {
           ...product,
           totalPriceInRouble:

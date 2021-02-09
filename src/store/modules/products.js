@@ -11,14 +11,11 @@ export const products = {
     namesRequestStatus: null
   }),
   getters: {
-    productGroups: (state, getters, rootState) => {
-      return Utils.groupBy(
-        state.list.map(product => ({
-          priceInRouble: product.price * rootState.dollarRate,
-          ...product
-        })),
-        "groupName"
-      );
+    listWithRoubles: (state, getters, rootState) => {
+      return state.list.map(product => ({
+        priceInRouble: product.price * rootState.dollarRate,
+        ...product
+      }));
     }
   },
   actions: {
@@ -58,13 +55,7 @@ export const products = {
         .then(response => {
           const names = response.data;
           commit("setNames", names);
-
           dispatch("getAllProducts");
-          setInterval(() => {
-            commit("updateDollarRate", null, { root: true });
-            dispatch("getAllProducts");
-          }, 5000);
-
           commit("setNamesStatus", RequestStatus.SUCCESS);
         })
         .catch(error => {
