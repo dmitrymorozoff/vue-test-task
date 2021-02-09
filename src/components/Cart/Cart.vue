@@ -2,9 +2,9 @@
   <div class="cart">
     <h2>Корзина товаров</h2>
     <CartHeader />
-    <div class="cart-items" v-if="listWithRoubles.length > 0">
+    <div class="cart-items" v-if="productsInCart.length > 0">
       <CartItem
-        v-for="(cartItem, index) in listWithRoubles"
+        v-for="(cartItem, index) in productsInCart"
         :key="index"
         :cartItem="cartItem"
         @click="removeProductFromCart"
@@ -21,7 +21,7 @@
 <script>
 import CartHeader from "@/components/Cart/CartHeader";
 import CartItem from "@/components/Cart/CartItem";
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters, mapState } from "vuex";
 
 export default {
   name: "Cart",
@@ -30,7 +30,27 @@ export default {
     CartHeader
   },
   computed: {
-    ...mapGetters("cart", ["totalPriceInRouble", "listWithRoubles"])
+    ...mapGetters("products", ["listWithRoubles"]),
+    ...mapState("cart", ["list"]),
+    productsInCart() {
+      return Array.from(this.list).map(([key, value]) => {
+        const currentProduct = this.listWithRoubles.find(
+          product => product.productId === key
+        );
+        return {
+          ...currentProduct,
+          count: value,
+          totalCount: currentProduct.count,
+          totalPriceInRouble: currentProduct.priceInRouble * value
+        };
+      });
+    },
+    totalPriceInRouble() {
+      return this.productsInCart
+        .map(item => item.priceInRouble * item.count)
+        .reduce((x, y) => x + y, 0)
+        .toFixed(2);
+    }
   },
   methods: {
     ...mapMutations("cart", ["removeProductFromCart"])

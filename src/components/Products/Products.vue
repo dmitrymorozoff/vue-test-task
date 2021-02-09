@@ -7,7 +7,7 @@
         <ProductItem
           v-for="product in group"
           :key="product.productId"
-          @click="addProductToCart"
+          @click="clickOnProductItem(product)"
           :product="product"
         />
       </CollapseContent>
@@ -39,6 +39,7 @@ export default {
   computed: {
     ...mapGetters("products", ["listWithRoubles"]),
     ...mapState({
+      listInCart: state => state.cart.list,
       listRequestStatus: state => state.products.listRequestStatus,
       productGroups() {
         return Utils.groupBy(this.listWithRoubles, "groupName");
@@ -63,7 +64,16 @@ export default {
       addProductToCart: "cart/addProductToCart",
       updateDollarRate: "updateDollarRate"
     }),
-    ...mapActions("products", ["getNames", "getAllProducts"])
+    ...mapActions("products", ["getNames", "getAllProducts"]),
+    clickOnProductItem({ count, productId }) {
+      if (this.listInCart.has(productId)) {
+        if (this.listInCart.get(productId) < count) {
+          this.addProductToCart(productId);
+        }
+      } else {
+        this.addProductToCart(productId);
+      }
+    }
   }
 };
 </script>

@@ -1,54 +1,25 @@
 export const cart = {
   namespaced: true,
   state: () => ({
-    list: []
+    list: new Map()
   }),
-  getters: {
-    listWithRoubles: (state, getters, rootState) => {
-      return state.list.map(product => {
-        return {
-          ...product,
-          totalPriceInRouble:
-            product.price * rootState.dollarRate * product.count
-        };
-      });
-    },
-    totalPriceInRouble: (state, getters, rootState) => {
-      return state.list
-        .map(item => item.price * rootState.dollarRate * item.count)
-        .reduce((x, y) => x + y, 0)
-        .toFixed(2);
-    }
-  },
   mutations: {
-    addProductToCart: (state, product) => {
-      const currentProduct = state.list.find(
-        x => x.productId === product.productId
-      );
-
-      if (currentProduct) {
-        currentProduct.count += 1;
-        currentProduct.totalPriceInRouble += product.priceInRouble;
+    addProductToCart: (state, productId) => {
+      const copiedList = new Map(state.list);
+      if (copiedList.has(productId)) {
+        copiedList.set(productId, state.list.get(productId) + 1);
       } else {
-        state.list.push({
-          ...product,
-          totalPriceInRouble: product.priceInRouble,
-          totalCount: product.count,
-          count: 1
-        });
+        copiedList.set(productId, 1);
       }
+      state.list = copiedList;
     },
     removeProductFromCart: (state, payload) => {
-      state.list = state.list.filter(product => product.productId !== payload);
+      const copiedList = new Map(state.list);
+      copiedList.delete(payload);
+      state.list = copiedList;
     },
     setCount: (state, payload) => {
-      const currentProduct = state.list.find(x => x.productId === payload.id);
-
-      if (currentProduct) {
-        currentProduct.count = payload.count;
-        currentProduct.totalPriceInRouble =
-          payload.count * currentProduct.priceInRouble;
-      }
+      state.list = new Map(state.list).set(payload.id, payload.count);
     }
   }
 };

@@ -12,7 +12,7 @@
       />
       шт.
     </div>
-    <div>{{ cartItem.totalPriceInRouble.toFixed(2) }}</div>
+    <div>{{ cartItem.totalPriceInRouble.toFixed(2) }} руб.</div>
     <div>
       <button @click="$emit('click', cartItem.productId)">
         удалить
