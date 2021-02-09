@@ -14,14 +14,7 @@
     </div>
     <div>{{ cartItem.totalPriceInRouble.toFixed(2) }}</div>
     <div>
-      <button
-        @click="
-          $emit('remove-product-from-cart', {
-            id: cartItem.productId,
-            count: 1
-          })
-        "
-      >
+      <button @click="$emit('click', cartItem.productId)">
         удалить
       </button>
     </div>

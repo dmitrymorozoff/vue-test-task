@@ -1,5 +1,5 @@
 <template>
-  <div class="product-item" @click="$emit('add-product-to-cart', product)">
+  <div class="product-item" @click="$emit('click', product)">
     <transition
       :name="order === 1 ? 'fade-green' : 'fade-red'"
       :duration="1500"

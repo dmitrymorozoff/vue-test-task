@@ -14,12 +14,10 @@ export const cart = {
       });
     },
     totalPriceInRouble: (state, getters, rootState) => {
-      if (state.list.length > 0) {
-        return state.list
-          .map(item => item.price * rootState.dollarRate * item.count)
-          .reduce((x, y) => x + y)
-          .toFixed(2);
-      }
+      return state.list
+        .map(item => item.price * rootState.dollarRate * item.count)
+        .reduce((x, y) => x + y, 0)
+        .toFixed(2);
     }
   },
   mutations: {
@@ -41,17 +39,12 @@ export const cart = {
       }
     },
     removeProductFromCart: (state, payload) => {
-      const foundIndex = state.list.findIndex(x => x.productId === payload.id);
-
-      if (foundIndex !== -1) {
-        state.list.splice(foundIndex, 1);
-      }
+      state.list = state.list.filter(product => product.productId !== payload);
     },
     setCount: (state, payload) => {
-      const foundIndex = state.list.findIndex(x => x.productId === payload.id);
-      const currentProduct = state.list[foundIndex];
+      const currentProduct = state.list.find(x => x.productId === payload.id);
 
-      if (foundIndex !== -1) {
+      if (currentProduct) {
         currentProduct.count = payload.count;
         currentProduct.totalPriceInRouble =
           payload.count * currentProduct.priceInRouble;

@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    dollarRate: 100
+    dollarRate: 60
   },
   mutations: {
     updateDollarRate: state => {

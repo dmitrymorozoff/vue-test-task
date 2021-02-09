@@ -2,14 +2,15 @@
   <div class="cart">
     <h2>Корзина товаров</h2>
     <CartHeader />
-    <div class="cart-items">
+    <div class="cart-items" v-if="listWithRoubles.length > 0">
       <CartItem
         v-for="(cartItem, index) in listWithRoubles"
         :key="index"
         :cartItem="cartItem"
-        @remove-product-from-cart="removeProductFromCart"
+        @click="removeProductFromCart"
       ></CartItem>
     </div>
+    <div class="empty-cart" v-else>В корзине пока пусто</div>
     <div class="total-price">
       Общая стоимость
       <div class="total-price-value">{{ totalPriceInRouble || 0 }} руб.</div>
@@ -50,6 +51,12 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.empty-cart {
+  padding: 20px;
+  box-sizing: border-box;
+  color: #a9a9a9;
 }
 
 .total-price {
