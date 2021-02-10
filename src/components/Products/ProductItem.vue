@@ -74,8 +74,9 @@ export default {
 .product-item-value {
   width: 75%;
   display: flex;
-  font-size: 14px;
-  padding: 10px;
+  font-size: 13px;
+  line-height: 1.7;
+  padding: 5px 10px;
   box-sizing: border-box;
   text-align: left;
   z-index: 2;
@@ -84,11 +85,12 @@ export default {
 .product-item-price {
   width: 25%;
   font-weight: bold;
-  font-size: 16px;
-  padding: 10px;
+  font-size: 14px;
+  padding: 5px 10px;
   box-sizing: border-box;
   text-align: right;
   z-index: 2;
+  border-left: 1px solid #dddcdc;
 }
 
 .fade-green-enter-active {

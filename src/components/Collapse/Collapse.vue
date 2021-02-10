@@ -39,7 +39,7 @@ export default {
 .collapse-trigger {
   display: flex;
   align-items: center;
-  padding: 15px;
+  padding: 10px;
   box-sizing: border-box;
   border-left: 3px solid #ffc389;
   background-color: #fff6ee;

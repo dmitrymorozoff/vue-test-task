@@ -10,6 +10,7 @@ export const products = {
     namesRequestStatus: null
   }),
   getters: {
+    // Переводим цены товаров в рубли и возвращаем новый список с ценами в рублях
     listWithRoubles: (state, getters, rootState) => {
       return state.list.map(product => ({
         priceInRouble: product.price * rootState.dollarRate,
@@ -18,6 +19,7 @@ export const products = {
     }
   },
   actions: {
+    // Получаем список всех товаров
     getAllProducts: ({ commit, state }) => {
       commit("setAllProductsStatus", RequestStatus.PENDING);
       return shop
@@ -42,6 +44,7 @@ export const products = {
           console.error(error);
         });
     },
+    // Получаем сопоставления id групп и товаров с их названиями
     getNames: ({ commit, dispatch }) => {
       commit("setNamesStatus", RequestStatus.PENDING);
       return shop

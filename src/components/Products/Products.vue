@@ -80,11 +80,16 @@ export default {
 
 <style lang="scss">
 .products {
-  width: 600px;
+  width: 520px;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
   padding: 20px;
-  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1350px) {
+  .products {
+    width: 100%;
+  }
 }
 </style>

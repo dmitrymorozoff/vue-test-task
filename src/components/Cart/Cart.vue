@@ -12,7 +12,7 @@
     </div>
     <div class="empty-cart" v-else>В корзине пока пусто</div>
     <div class="total-price">
-      Общая стоимость
+      Общая стоимость:
       <div class="total-price-value">{{ totalPriceInRouble || 0 }} руб.</div>
     </div>
   </div>
@@ -60,11 +60,11 @@ export default {
 
 <style lang="scss">
 .cart {
-  width: 600px;
+  width: 520px;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .cart-items {
@@ -92,5 +92,11 @@ export default {
   font-weight: 600;
   font-size: 16px;
   margin-left: 15px;
+}
+
+@media only screen and (max-width: 1350px) {
+  .cart {
+    width: 100%;
+  }
 }
 </style>

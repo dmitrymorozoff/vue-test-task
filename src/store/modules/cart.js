@@ -4,6 +4,7 @@ export const cart = {
     list: new Map()
   }),
   mutations: {
+    // Добавляем товар в корзину в виде пары ключ-значение айди товара-количество товара
     addProductToCart: (state, productId) => {
       const copiedList = new Map(state.list);
       if (copiedList.has(productId)) {
@@ -13,13 +14,15 @@ export const cart = {
       }
       state.list = copiedList;
     },
+    // Удаляем товар из корзины по айди товара
     removeProductFromCart: (state, productId) => {
       const copiedList = new Map(state.list);
       copiedList.delete(productId);
       state.list = copiedList;
     },
-    setCount: (state, payload) => {
-      state.list = new Map(state.list).set(payload.id, payload.count);
+    // Меням количество товара по айди товара
+    setCount: (state, { id, count }) => {
+      state.list = new Map(state.list).set(id, count);
     }
   }
 };

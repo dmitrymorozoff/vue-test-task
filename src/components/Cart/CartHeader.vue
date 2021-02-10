@@ -34,7 +34,7 @@ export default {
       width: 50%;
     }
     &:nth-child(2) {
-      width: 25%;
+      width: 20%;
     }
     &:nth-child(3) {
       width: 15%;

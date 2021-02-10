@@ -58,15 +58,15 @@ export default {
   > div {
     text-align: left;
     padding-left: 10px;
-    line-height: 1.2;
-    font-size: 14px;
+    line-height: 1.5;
+    font-size: 13px;
 
     &:nth-child(1) {
       width: 50%;
     }
 
     &:nth-child(2) {
-      width: 25%;
+      width: 20%;
 
       input {
         width: 40%;
