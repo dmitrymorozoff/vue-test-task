@@ -13,9 +13,9 @@ export const cart = {
       }
       state.list = copiedList;
     },
-    removeProductFromCart: (state, payload) => {
+    removeProductFromCart: (state, productId) => {
       const copiedList = new Map(state.list);
-      copiedList.delete(payload);
+      copiedList.delete(productId);
       state.list = copiedList;
     },
     setCount: (state, payload) => {

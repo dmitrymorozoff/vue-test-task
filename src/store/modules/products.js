@@ -23,7 +23,18 @@ export const products = {
       return shop
         .getProducts(state)
         .then(products => {
-          commit("setAllProducts", products);
+          const newProducts = products.map(product => {
+            const group = state.names[product.groupId];
+            const groupName = group.groupName;
+            const productName = group.products[product.productId].productName;
+            return {
+              groupName,
+              productName,
+              ...product
+            };
+          });
+
+          commit("setAllProducts", newProducts);
           commit("setAllProductsStatus", RequestStatus.SUCCESS);
         })
         .catch(error => {
@@ -35,14 +46,14 @@ export const products = {
       commit("setNamesStatus", RequestStatus.PENDING);
       return shop
         .getNames()
-        .then(({ data: names }) => {
+        .then(names => {
           commit("setNames", names);
           dispatch("getAllProducts");
           commit("setNamesStatus", RequestStatus.SUCCESS);
         })
         .catch(error => {
-          console.error(error);
           commit("setNamesStatus", RequestStatus.FAIL);
+          console.error(error);
         });
     }
   },
